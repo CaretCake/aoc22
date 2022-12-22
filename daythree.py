@@ -7,17 +7,20 @@ def get_priority(item):
 
 file = open("input.txt", "r")
 
-
-items = []
+packs = []
+badges = []
 result = 0
 
 for line in file:
     rucksackItems = ' '.join(line.split())
-    firstCompartment, secondCompartment = rucksackItems[:len(rucksackItems)//2], rucksackItems[len(rucksackItems)//2:]
-    items = items + list((set(firstCompartment).intersection(secondCompartment)))
+    if (len(packs) == 3):
+        packs = []
+    packs.append(rucksackItems)
+    if (len(packs) < 3): continue
+    badges = badges + list((set(packs[0]).intersection(packs[1]).intersection(packs[2])))
 
-for item in items:
-    result += get_priority(item)
+for badge in badges:
+    result += get_priority(badge)
 
 print(result)
 
