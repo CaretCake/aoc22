@@ -8,17 +8,27 @@ file = open("input.txt", "r")
 # Scissors: 3 pt
 #   C, Z
 
+# Part two logic:
+# Rock: 1 pt
+#   A
+# Paper: 2 pt
+#   B
+# Scissors: 3 pt
+#   C
+# X - need loss
+# Y - need draw
+# z - need win
 
 scores = {
-    "A X": 4, #rock, rock - draw 3
-    "A Y": 8, #rock, paper - win 6
-    "A Z": 3, #rock, scissors - loss 0
-    "B X": 1, #paper, rock - loss 0
-    "B Y": 5, #paper, paper - draw 3
-    "B Z": 9, #paper, scissors - win 6
-    "C X": 7, #scissors, rock - win 6
-    "C Y": 2, #scissors, paper - loss 0
-    "C Z": 6  #scissors, scissors - draw 3
+    "A X": 3, #rock - loss 0, scissors 3
+    "A Y": 4, #rock - draw 3, rock, 1
+    "A Z": 8, #rock - win 6, paper 2
+    "B X": 1, #paper - loss 0, rock 1
+    "B Y": 5, #paper - draw 3, paper 2
+    "B Z": 9, #paper - win 6, scissors 3
+    "C X": 2, #scissors - loss 0, paper 2
+    "C Y": 6, #scissors - draw 3, scissors 3
+    "C Z": 7  #scissors - win 6, rock 1
 }
 
 
