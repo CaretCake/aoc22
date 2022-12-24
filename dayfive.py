@@ -1,17 +1,19 @@
+import time
 def main():
     file = open("input.txt", "r")
-
     stacks = build_stacks(file)
     for line in file:
         if not line.isspace():
             moveValues = get_move_values(line)
-            while moveValues["numOfItems"] > 0:
-                item = stacks[moveValues['sourceStack']].pop()
-                stacks[moveValues['destinationStack']].append(item)
-                moveValues['numOfItems'] += -1
+            numOfItems = moveValues[0]
+            sourceStack = moveValues[1]
+            destinationStack = moveValues[2]
+            
+            itemsToMove = stacks[sourceStack][-numOfItems:]
+            stacks[sourceStack] = stacks[sourceStack][:len(stacks[sourceStack])-numOfItems]
+            stacks[destinationStack].extend(itemsToMove)
     topItems = ''
     for stack in stacks:
-        print(stack)
         topItems += stack.pop()
     print(topItems)
     file.close()
@@ -23,14 +25,14 @@ def main():
 #[#] [#] [#]
 # 1   2   3
 
-# Returns dict with ['numOfItems']:# to move, ['sourceStack']:source stack, ['destinationStack]:destination stack
+# Returns list with [0]:# to move, [1]:source stack, [2]]:destination stack
 def get_move_values(line):
     splitLine = line.rstrip('\n').split(' ')
-    return {
-        'numOfItems': int(splitLine[1]),
-        'sourceStack': int(splitLine[3])-1,
-        'destinationStack': int(splitLine[5])-1
-    }
+    return [
+        int(splitLine[1]),
+        int(splitLine[3])-1,
+        int(splitLine[5])-1
+    ]
 
 def separate_items(itemList):
     items = []
